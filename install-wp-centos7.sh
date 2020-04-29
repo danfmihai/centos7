@@ -4,7 +4,7 @@ clear
 echo "##### Installing Apache Php and downloading wordpress #####"
 echo
 echo
-read -p "Run the update and install php httpd?" answer
+read -p "Run the updates and install php httpd?  " answer
 while true
 do
   case $answer in
@@ -41,6 +41,7 @@ fi
 rsync -a wordpress/ html/
 echo
 echo "Fixing permissions..."
+#cp wp-config-sample.php wp-config.php
 chown -R apache:apache html/
 find html/ -type d -exec chmod 750 {} \;
 find html/ -type f -exec chmod 640 {} \;
@@ -75,7 +76,6 @@ echo "### RESTART HTTPD ###"
 systemctl restart httpd 
 #cp html/wp-config-sample.php html/wp-config.php
 #echo "$(pwd)"
-
 echo "#### ALL DONE ####"
 echo "Access the wordpress at localhost or your server ip address for the rest of the install"
 php --version | awk '{print $1,$2}' 
